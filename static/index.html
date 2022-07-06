@@ -1,0 +1,215 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
+
+    <title>List of movies API</title>
+
+    <style>
+      main {
+        width: 80%;
+        min-width: 320px;
+        margin: 0 auto;
+        font-family: "Montserrat";
+        display: flex;
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 40px 40px 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 900;
+        margin: 40px 0 10px;
+        color: #444;
+      }
+
+      header.main {
+        margin: 0 50px 0 0;
+      }
+
+      .overview {
+        font-size: 18px;
+        margin: 0 0 80px;
+        color: #888;
+        line-height: 1.5em;
+      }
+
+      .overview a {
+        color: #888;
+      }
+
+      code {
+        background: #F4F4F4;
+        border: 1px solid #E4E4E4;
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 4px;
+        color: #666;
+        line-height: 1em;
+      }
+
+      li {
+        font-size: 20px;
+        margin-bottom: 40px;
+      }
+
+      li header {
+        display: flex;
+        align-items: center;
+      }
+
+      li a {
+        font-size: 26px;
+        font-weight: 700;
+        color: #444;
+      }
+
+      li p {
+        font-size: 17px;
+        margin: 10px 0;
+        color: #888;
+        line-height: 1.6em;
+      }
+
+      .req {
+        display: inline-block;
+        border-radius: 3px;
+        color: #FFF;
+        font-weight: 700;
+        padding: 4px 10px;
+        margin-right: 10px;
+      }
+
+      .req.get {
+        background: #9ccc65;
+      }
+
+      .req.pst {
+        background: #4fc3f7;
+      }
+
+      .req.del {
+        background: #e57373;
+      }
+
+      .req.put {
+        background: #9575cd;
+      }
+
+      @media (max-width: 900px) {
+        main {
+          flex-direction: column;
+        }
+
+        ul {
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="main">
+        <h1>List of movies API</h1>
+        <p class="overview">
+          A tiny Deno based REST API built for testing purposes. <br />
+          The code is on <a href="https://github.com/awesome-club/movie-list-api">GitHub</a>.<br />
+          Using <a href="https://www.themoviedb.org/">TMDB</a> to pull movie data.<br />
+          Various experiments with this are on <a href="https://www.youtube.com/channel/UCXzw-OdotBUcNA9yhuYQBwA">YouTube</a>.
+        </p>
+      </header>
+
+      <section>
+        <ul>
+          <li>
+            <header>
+              <span class="req get">GET</span>
+              <a href="/init">/init</a>
+            </header>
+            <p>
+              Get initial member data.<br />
+              <strong>Accepts:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Returns:</strong> a new unique user id if the <code>X-MID</code> header is not present.<br />
+              <strong>Returns:</strong> the movie lists associated with the user sending the request if the <code>X-MID</code> header is present.
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req get">GET</span>
+              <a href="/movies/search">/movies/search?key</a>
+            </header>
+            <p>
+              Search for movies by title.<br />
+              <strong>Required:</strong> A search <code>key</code> request parameter.<br />
+              <strong>Returns:</strong> a list of movie suggestions based on the <code>key</code> parameter.<br />
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req pst">POST</span>
+              <a href="/lists">/lists</a>
+            </header>
+            <p>
+              Create a movie list.<br />
+              <strong>Required:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Required:</strong> a <code>Content-Type</code> request header set to <code>application/json</code>.<br />
+              <strong>Required:</strong> the list name in the request body <code>{"name": "My List"}</code>.<br />
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req del">DELETE</span>
+              <a href="/lists/:listId">/lists/:listId</a>
+            </header>
+            <p>
+              Delete a movie list.<br />
+              <strong>Required:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Required:</strong> the <code>listId</code> sent as a request path variable.
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req get">GET</span>
+              <a href="/lists/:listId">/lists/:listId</a>
+            </header>
+            <p>
+              Get a movie list.<br />
+              <strong>Required:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Required:</strong> the <code>listId</code> sent as a request path variable.
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req put">PUT</span>
+              <a href="/lists/:listId/movies/:movieId">/lists/:listId/movies/:movieId</a>
+            </header>
+            <p>
+              Add a movie to a list.<br />
+              <strong>Required:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Required:</strong> the <code>listId</code> sent as a request path variable.<br />
+              <strong>Required:</strong> the <code>movieId</code> sent as a request path variable.
+            </p>
+          </li>
+
+          <li>
+            <header>
+              <span class="req del">DELETE</span>
+              <a href="/lists/:listId/movies/:movieId">/lists/:listId/movies/:movieId</a>
+            </header>
+            <p>
+              Remove a movie to a list.<br />
+              <strong>Required:</strong> a <code>X-MID</code> request header to identify the user sending the request.<br />
+              <strong>Required:</strong> the <code>listId</code> sent as a request path variable.<br />
+              <strong>Required:</strong> the <code>movieId</code> sent as a request path variable.
+            </p>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
