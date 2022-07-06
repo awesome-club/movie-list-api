@@ -1,7 +1,7 @@
 import { DB } from "./deps.ts";
 import { DatabaseName } from "./env.ts";
 
-export const DbInstance = new DB(DatabaseName);
+export const DbInstance = new DB(DatabaseName, { memory: true });
 
 export function initDb() {
   DbInstance.query(`
