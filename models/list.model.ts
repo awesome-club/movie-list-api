@@ -5,4 +5,5 @@ export interface ListDto {
   name: string;
   memberId: string;
   movies: Partial<MovieDto>[];
+  isPublic: boolean;
 }

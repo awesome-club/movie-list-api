@@ -6,24 +6,35 @@ import { randomId } from "./id.service.ts";
 
 const Querries = {
   FindById:
-    "SELECT list_id, list_name, member_id, movies FROM movie_list WHERE list_id = ? LIMIT 1",
+    "SELECT list_id, list_name, member_id, is_public, movies FROM movie_list WHERE list_id = ? LIMIT 1",
   FindByMemberId:
-    "SELECT list_id, list_name, member_id, movies FROM movie_list WHERE member_id = ?",
+    "SELECT list_id, list_name, member_id, is_public, movies FROM movie_list WHERE member_id = ?",
   DeleteListById: "DELETE FROM movie_list WHERE list_id = ?",
   InsertList:
-    "INSERT INTO movie_list (member_id, list_id, list_name, movies) VALUES (?,?,?,?)",
+    "INSERT INTO movie_list (member_id, list_id, list_name, is_public, movies) VALUES (?,?,?,?,?)",
   UpdateListMovies: "UPDATE movie_list SET movies = ? where list_id = ?",
 };
 
-export function create(memberId: string, name: string): ListDto {
+export function create(
+  memberId: string,
+  name: string,
+  isPublic: boolean,
+): ListDto {
   const dto = {
     id: randomId(),
     name,
     memberId,
+    isPublic,
     movies: [],
   } as ListDto;
 
-  DbInstance.query(Querries.InsertList, [memberId, dto.id, name, "[]"]);
+  DbInstance.query(Querries.InsertList, [
+    memberId,
+    dto.id,
+    name,
+    isPublic,
+    "[]",
+  ]);
 
   return dto;
 }
@@ -73,12 +84,13 @@ export function removeMovieFromList(list: ListDto, movieId: number) {
 }
 
 function getListFromRow(result: Row) {
-  const [listId, listName, memberId, movies] = result;
+  const [listId, listName, memberId, isPublic, movies] = result;
 
   return {
     id: listId as string,
     name: listName as string,
     memberId: memberId as string,
+    isPublic: isPublic as boolean,
     movies: JSON.parse(movies as string),
   };
 }

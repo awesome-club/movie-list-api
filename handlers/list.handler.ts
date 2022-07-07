@@ -30,10 +30,15 @@ export async function create(ctx: Context) {
     return;
   }
 
-  const dto = await body.value;
-  listService.create(memberId, dto.name);
+  try {
+    const dto = await body.value;
+    ListService.create(memberId, dto.name, dto.isPublic);
 
-  ctx.response.status = Status.OK;
+    ctx.response.status = Status.OK;
+  } catch (err) {
+    ctx.response.status = Status.BadRequest;
+    console.error(err);
+  }
 }
 
 export async function remove(ctx: Context) {
