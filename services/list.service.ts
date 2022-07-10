@@ -84,6 +84,7 @@ export function removeMovieFromList(list: ListDto, movieId: number) {
 }
 
 function getListFromRow(result: Row) {
+  console.log("=> get list from row: ", JSON.stringify(result));
   const [listId, listName, memberId, isPublic, movies] = result;
 
   return {
