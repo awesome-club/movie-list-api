@@ -32,6 +32,7 @@ export async function create(ctx: Context) {
 
   try {
     const dto = await body.value;
+    console.log("=> create list dto=", JSON.stringify(dto));
     ListService.create(memberId, dto.name, dto.isPublic);
 
     ctx.response.status = Status.OK;
