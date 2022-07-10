@@ -14,7 +14,7 @@ async function fetchWithPermission(
   const list = await ListService.getById(listId);
   if (!list) return null;
 
-  if (list.memberId !== memberId) {
+  if (!list.isPublic && list.memberId !== memberId) {
     ctx.response.status = Status.NotFound;
     return null;
   }
