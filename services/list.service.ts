@@ -27,6 +27,7 @@ export function create(
     isPublic,
     movies: [],
   } as ListDto;
+  console.log("=> insert list", JSON.stringify(dto));
 
   DbInstance.query(Querries.InsertList, [
     memberId,
