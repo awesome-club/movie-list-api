@@ -11,6 +11,7 @@ const Routes = new Router()
   .get("/init", SetupHandler.init)
   // Movies
   .get("/movies/search", MovieHandler.search)
+  .get("/movies", MovieHandler.details)
   //Lists
   .post("/lists", ListsHandler.create)
   .delete("/lists/:listId", ListsHandler.remove)

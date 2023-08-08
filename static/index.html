@@ -117,10 +117,10 @@
       <header class="main">
         <h1>List of movies API</h1>
         <p class="overview">
-          A tiny Deno based REST API built for testing purposes. <br />
+          A  Deno based REST API. <br />
           The code is on <a href="https://github.com/awesome-club/movie-list-api">GitHub</a>.<br />
-          Using <a href="https://www.themoviedb.org/">TMDB</a> to pull movie data.<br />
-          Various experiments with this are on <a href="https://www.youtube.com/channel/UCXzw-OdotBUcNA9yhuYQBwA">YouTube</a>.
+          <a href="https://www.themoviedb.org/">TMDB</a> to pull movie data.<br />
+          Experiments on <a href="https://www.youtube.com/channel/UCXzw-OdotBUcNA9yhuYQBwA">YouTube</a>.
         </p>
       </header>
 
@@ -145,6 +145,17 @@
             </header>
             <p>
               Search for movies by title.<br />
+              <strong>Required:</strong> A search <code>key</code> request parameter.<br />
+              <strong>Returns:</strong> a list of movie suggestions based on the <code>key</code> parameter.<br />
+            </p>
+          </li>
+          <li>
+            <header>
+              <span class="req get">GET</span>
+              <a href="/movies">/movies/?id</a>
+            </header>
+            <p>
+              Get the details for a movie<br />
               <strong>Required:</strong> A search <code>key</code> request parameter.<br />
               <strong>Returns:</strong> a list of movie suggestions based on the <code>key</code> parameter.<br />
             </p>
